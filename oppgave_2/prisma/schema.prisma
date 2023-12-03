@@ -13,3 +13,34 @@ model User {
   email String  @unique
   name  String?
 }
+
+model Athlete {
+  id         String   @id @default(uuid())
+  uniqueId   String   @unique
+  gender     String
+  sportType  String
+  sessions   Session[]
+  goals      Goal[]
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  name         String
+  date         DateTime
+  type         String
+  tags         String
+  athleteId    String
+  athlete      Athlete  @relation(fields: [athleteId], references: [id])
+}
+
+model Goal {
+  id         String   @id @default(uuid())
+  name       String
+  date       DateTime
+  details    String
+  type       String
+  priority   String
+  comments   String
+  athleteId  String
+  athlete    Athlete @relation(fields: [athleteId], references: [id])
+}
